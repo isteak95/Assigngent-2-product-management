@@ -16,8 +16,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
+  res.send('hello wrold');
 });
 
 app.all('*', (req: Request, res: Response) => {
