@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { userRoutes } from './app/modules/user/user.routes';
+import productRoutes from './app/modules/product/product.routers';
+import orderRoutes from './app/modules/order/order.routes';
+
 const app: Application = express();
 
 // parser
@@ -8,9 +10,14 @@ app.use(express.json());
 app.use(cors());
 
 // routers ----------
-app.use('/api', userRoutes);
+
+// Use product routes
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+
 app.get('/', (req: Request, res: Response) => {
-  res.send('User Management');
+  const a = 10;
+  res.send(a);
 });
 
 app.all('*', (req: Request, res: Response) => {
