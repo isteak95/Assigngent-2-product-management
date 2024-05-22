@@ -3,13 +3,14 @@ import { IOrder } from './order.interface';
 
 export const createOrder = async (orderData: IOrder) => {
   const order = new OrderModel(orderData);
-  return await order.save();
+  await order.save();
+  return order;
 };
 
 export const getAllOrders = async () => {
-  return await OrderModel.find().populate('productId');
+  return OrderModel.find();
 };
 
 export const getOrdersByEmail = async (email: string) => {
-  return await OrderModel.find({ email }).populate('productId');
+  return OrderModel.find({ email });
 };

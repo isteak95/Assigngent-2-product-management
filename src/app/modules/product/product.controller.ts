@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as ProductService from '../product/product.services';
 import { ProductSchema } from '../product/product.validations';
 import ProductModel from '../product/product.model';
+import { searchProduct } from '../product/product.services'; // Adjust the path as necessary
 
 import { ZodError } from 'zod';
 
@@ -127,21 +128,25 @@ export const deleteProductById = async (req: Request, res: Response) => {
 
 export const searchProducts = async (req: Request, res: Response) => {
   try {
-    const searchTerm = req.query.searchTerm as string;
-    const products = await ProductModel.find({
-      $or: [
-        { name: new RegExp(searchTerm, 'i') },
-        { description: new RegExp(searchTerm, 'i') },
-        { category: new RegExp(searchTerm, 'i') },
-        { tags: new RegExp(searchTerm, 'i') },
-      ],
-    });
+    const { searchTerm } = req.query;
 
-    res.status(200).json({ success: true, data: products });
+    if (!searchTerm) {
+      return res.status(400).json({
+        success: false,
+        message: 'Search term is required',
+      });
+    }
+
+    const products = await searchProduct(searchTerm as string);
+    res.status(200).json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: products,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Failed to search products',
+      message: 'Failed to fetch products',
       error: error.message,
     });
   }

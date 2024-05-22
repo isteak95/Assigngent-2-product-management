@@ -11,20 +11,21 @@ import {
 const router = Router();
 
 // Create a new product
-router.post('/create-product', createProduct);
+router.post('/', createProduct);
 
 // Get all products
-router.get('/all-product', getAllProducts);
+router.get('/', getAllProducts);
 
 // Get a single product by ID
 router.get('/:productId', getProductById);
 
-router.get('/search', searchProducts);
-
 // Update a product by ID
-router.put('/update/:productId', updateProductById);
+router.put('/:productId', updateProductById);
 
 // Delete a product by ID
-router.delete('/delete/:productId', deleteProductById);
+router.delete('/:productId', deleteProductById);
+
+// Search for products
+router.get('/search', searchProducts);
 
 export default router;

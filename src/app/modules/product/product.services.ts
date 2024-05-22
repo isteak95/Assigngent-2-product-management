@@ -1,5 +1,5 @@
-import ProductModel from './product.model';
-import { IProduct } from './product.interface';
+import ProductModel from '../product/product.model';
+import { IProduct } from '../product/product.interface';
 
 export const createProduct = async (productData: IProduct) => {
   const product = new ProductModel(productData);
@@ -27,4 +27,16 @@ export const updateProductById = async (
 
 export const deleteProductById = async (id: string) => {
   return ProductModel.findByIdAndDelete(id);
+};
+
+export const searchProduct = async (searchTerm: string) => {
+  const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regex
+  return ProductModel.find({
+    $or: [
+      { name: regex },
+      { description: regex },
+      { category: regex },
+      { tags: regex },
+    ],
+  });
 };
