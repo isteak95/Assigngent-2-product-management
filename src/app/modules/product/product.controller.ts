@@ -6,6 +6,8 @@ import { searchProduct } from '../product/product.services'; // Adjust the path 
 
 import { ZodError } from 'zod';
 
+//  Create a product
+
 export const createProduct = async (req: Request, res: Response) => {
   try {
     ProductSchema.parse(req.body);
@@ -20,10 +22,12 @@ export const createProduct = async (req: Request, res: Response) => {
     if (err instanceof ZodError) {
       res.status(400).json({ error: err.errors });
     } else {
-      res.status(500).json({ error: err.message });
+      res.status(500).json();
     }
   }
 };
+
+// get all product
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -37,10 +41,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch products',
-      error: error.message,
     });
   }
 };
+
+// get prduct by id
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
@@ -63,10 +68,11 @@ export const getProductById = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch product',
-      error: error.message,
     });
   }
 };
+
+// update product
 
 export const updateProductById = async (req: Request, res: Response) => {
   try {
@@ -95,10 +101,11 @@ export const updateProductById = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to update product',
-      error: error.message,
     });
   }
 };
+
+// delete product
 
 export const deleteProductById = async (req: Request, res: Response) => {
   try {
@@ -121,10 +128,11 @@ export const deleteProductById = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to delete product',
-      error: error.message,
     });
   }
 };
+
+// search product
 
 export const searchProducts = async (req: Request, res: Response) => {
   try {
@@ -147,7 +155,6 @@ export const searchProducts = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch products',
-      error: error.message,
     });
   }
 };
