@@ -40,8 +40,7 @@ export const createOrder = async (req: Request, res: Response) => {
       productId,
       price,
       quantity,
-      // Add any additional properties if necessary
-    } as IOrder; // Explicit type assertion
+    } as IOrder;
 
     const createdOrder = await OrderService.createOrder(order);
 
@@ -62,6 +61,8 @@ export const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+// get all order
+
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
     const orders = await OrderService.getAllOrders();
@@ -77,6 +78,8 @@ export const getAllOrders = async (req: Request, res: Response) => {
     });
   }
 };
+
+// get order by email
 
 export const getOrdersByEmail = async (req: Request, res: Response) => {
   try {
